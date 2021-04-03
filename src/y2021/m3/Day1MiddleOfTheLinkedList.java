@@ -1,5 +1,7 @@
 package y2021.m3;
 
+import dependecy.ListNode;
+
 /**
  * @ClassName : Day1MiddleOfTheLinkedList
  * @Description: 876. 链表的中间结点
@@ -33,14 +35,6 @@ public class Day1MiddleOfTheLinkedList {
      * ListNode(int x) { val = x; }
      * }
      */
-    public static class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode(int x) {
-            val = x;
-        }
-    }
 
     static class Solution {
         public ListNode middleNode(ListNode head) {
