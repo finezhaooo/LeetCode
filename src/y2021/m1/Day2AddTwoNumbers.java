@@ -1,6 +1,8 @@
 package y2021.m1;
 
 
+import dependecy.ListNode;
+
 /**
  * @ClassName : Day2AddTwoNumbers
  * @Description: 2. 两数相加
@@ -54,22 +56,6 @@ package y2021.m1;
  * @Date 2021/1/30/22:43
  */
 public class Day2AddTwoNumbers {
-    public static class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode() {
-        }
-
-        ListNode(int val) {
-            this.val = val;
-        }
-
-        ListNode(int val, ListNode next) {
-            this.val = val;
-            this.next = next;
-        }
-    }
 
     static class Solution {
 
