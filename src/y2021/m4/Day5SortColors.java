@@ -48,34 +48,26 @@ package y2021.m4;
  */
 public class Day5SortColors {
     public void sortColors(int[] nums) {
-        int left = 0;
-        int i;
-        int right = nums.length - 1;
-        while (left < right && nums[left] == 0) {
-            left++;
-        }
-        i = left;
-        while (left < right && nums[left] == 1) {
-            left++;
-        }
-        while (left < right && nums[right] == 2) {
-            right--;
-        }
-        while (left < right) {
-            if (nums[right] == 0) {
-                nums[right] = nums[i];
-                nums[i++] = 0;
+        int n = nums.length;
+        int p0 = 0, p1 = 0;
+        for (int i = 0; i < n; ++i) {
+            if (nums[i] == 1) {
+                int temp = nums[i];
+                nums[i] = nums[p1];
+                nums[p1] = temp;
+                ++p1;
+            } else if (nums[i] == 0) {
+                int temp = nums[i];
+                nums[i] = nums[p0];
+                nums[p0] = temp;
+                if (p0 < p1) {
+                    temp = nums[i];
+                    nums[i] = nums[p1];
+                    nums[p1] = temp;
+                }
+                ++p0;
+                ++p1;
             }
-            if (nums[right] == 1) {
-                nums[right] = nums[left];
-                nums[left++] = 1;
-            }
-            right--;
-            for (int num : nums) {
-                System.out.print(num);
-                System.out.print("  ");
-            }
-            System.out.println("-------");
         }
     }
 
