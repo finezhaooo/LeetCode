@@ -1,5 +1,8 @@
 package y2021.m4;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 /**
  * @ClassName : Day1TrappingRainWater
  * @Description: 42. 接雨水
@@ -64,6 +67,25 @@ public class Day1TrappingRainWater {
                     } while (left < right && height[right] < min);
                     result += (rightIndex - right) * min - solid;
                 }
+            }
+            return result;
+        }
+
+        // 单调栈
+        public int trap2(int[] height) {
+            int result = 0;
+            int len = height.length;
+            Deque<Integer> stack = new ArrayDeque<>(len);
+            for (int i = 0; i < len; i++) {
+                while (!stack.isEmpty() && height[i] > height[stack.peekLast()]) {
+                    int top = stack.removeLast();
+                    if (stack.isEmpty()) {
+                        break;
+                    }
+                    result += (i - stack.peekLast() - 1) *
+                            (Math.min(height[i], height[stack.peekLast()]) - height[top]);
+                }
+                stack.addLast(i);
             }
             return result;
         }
