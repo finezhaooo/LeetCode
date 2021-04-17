@@ -2,6 +2,8 @@ package newCoder;
 
 import dependecy.TreeNode;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -41,7 +43,7 @@ public class ThreeOrders {
     }
 
     public void pre(LinkedList<Integer> result, TreeNode node) {
-        if (node==null){
+        if (node == null) {
             return;
         }
         result.add(node.val);
@@ -49,8 +51,24 @@ public class ThreeOrders {
         pre(result, node.right);
     }
 
+    //非递归 栈
+    public void pre2(LinkedList<Integer> result, TreeNode node) {
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        stack.addLast(node);
+        while (!stack.isEmpty()) {
+            TreeNode tmpNode = stack.removeLast();
+            result.add(tmpNode.val);
+            if (tmpNode.right != null) {
+                stack.addLast(tmpNode.right);
+            }
+            if (tmpNode.left != null) {
+                stack.addLast(tmpNode.left);
+            }
+        }
+    }
+
     public void mid(LinkedList<Integer> result, TreeNode node) {
-        if (node==null){
+        if (node == null) {
             return;
         }
         mid(result, node.left);
@@ -58,12 +76,49 @@ public class ThreeOrders {
         mid(result, node.right);
     }
 
+    // 非递归
+    public void mid2(LinkedList<Integer> result, TreeNode node) {
+        //1、申请一个栈stack，初始时令cur=head
+        //2、先把cur压入栈中，依次把左边界压入栈中，即不停的令cur=cur.left，重复步骤2
+        //3、不断重复2，直到为null，从stack中弹出一个节点，记为node，打印node的值，并令cur=node.right,重复步骤2
+        //4、当stack为空且cur为空时，整个过程停止。
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        while (node != null || !stack.isEmpty()) {
+            while (node != null) {
+                stack.addLast(node);
+                node = node.left;
+            }
+            // 栈中node肯定不为null
+            node = stack.removeLast();
+            result.add(node.val);
+            // 左节点已经访问了
+            node = node.right;
+        }
+    }
+
+
     public void last(LinkedList<Integer> result, TreeNode node) {
-        if (node==null){
+        if (node == null) {
             return;
         }
         last(result, node.left);
         last(result, node.right);
         result.add(node.val);
+    }
+
+    // 非递归
+    public void last2(LinkedList<Integer> result, TreeNode node) {
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        stack.addLast(node);
+        while (!stack.isEmpty()) {
+            TreeNode tmpNode = stack.removeLast();
+            result.add(tmpNode.val);
+            if (tmpNode.left != null) {
+                stack.addLast(tmpNode.left);
+            }
+            if (tmpNode.right != null) {
+                stack.addLast(tmpNode.right);
+            }
+        }
     }
 }
