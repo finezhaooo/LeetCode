@@ -56,7 +56,7 @@ public class Day25LongestPalindromicSubstring {
             if (result2[1] - result2[0] > result1[1] - result1[0]) {
                 result1 = result2;
             }
-            return String.copyValueOf(Arrays.copyOfRange(chars, result1[0], result1[1]+1));
+            return String.copyValueOf(Arrays.copyOfRange(chars, result1[0], result1[1] + 1));
         }
 
         public void getNext(int start, int end, char[] chars, int[] result) {
@@ -72,7 +72,31 @@ public class Day25LongestPalindromicSubstring {
         }
     }
 
+    // 动态规划
+    public String longestPalindrome(String s) {
+        int len = s.length();
+        int[] res = new int[2];
+        boolean[][] dp = new boolean[len][len];
+        for (int i = len - 1; i >= 0; i--) {
+            dp[i][i] = true;
+            for (int j = i + 1; j < len; j++) {
+                if (s.charAt(i) == s.charAt(j)) {
+                    // 前面是回文子串
+                    // j==i+1 判断是否从2个数开始
+                    if (j == i + 1 || dp[i + 1][j - 1]) {
+                        if (j - i > res[1] - res[0]) {
+                            res[0] = i;
+                            res[1] = j;
+                        }
+                        dp[i][j] = true;
+                    }
+                }
+            }
+        }
+        return s.substring(res[0], res[1] + 1);
+    }
+
     public static void main(String[] args) {
-        System.out.println(Arrays.copyOfRange(new char[]{'a','b','c'},0,1));
+        System.out.println(Arrays.copyOfRange(new char[]{'a', 'b', 'c'}, 0, 1));
     }
 }
