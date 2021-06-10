@@ -1,7 +1,5 @@
 package y2021.m4;
 
-import org.w3c.dom.Node;
-
 /**
  * @ClassName : Day19copyListWithRandomPointer
  * @Description: 138. 复制带随机指针的链表
@@ -59,7 +57,7 @@ import org.w3c.dom.Node;
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 public class Day19CopyListWithRandomPointer {
-    class Node {
+    static class Node {
         int val;
         Node next;
         Node random;
