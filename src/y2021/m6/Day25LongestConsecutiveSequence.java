@@ -3,7 +3,6 @@ package y2021.m6;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @ClassName : Day25LongestConsecutiveSequence
@@ -45,12 +44,11 @@ public class Day25LongestConsecutiveSequence {
      * @return
      */
     public int longestConsecutive(int[] nums) {
-        int res = Math.min(nums.length,1);
+        int res = Math.min(nums.length, 1);
         int tmp = 1;
         nums = Arrays.stream(nums).distinct().sorted().toArray();
         for (int i = 1; i < nums.length; i++) {
-            if (nums[i]-1 == nums[i - 1]) {
-                System.out.println(nums[i]);
+            if (nums[i] - 1 == nums[i - 1]) {
                 tmp++;
                 res = Math.max(tmp, res);
             } else {
@@ -71,24 +69,18 @@ public class Day25LongestConsecutiveSequence {
         for (int num : nums) {
             numSet.add(num);
         }
-
         int longestStreak = 0;
-
         for (int num : numSet) {
-            
             if (!numSet.contains(num - 1)) {
                 int currentNum = num;
                 int currentStreak = 1;
-
                 while (numSet.contains(currentNum + 1)) {
                     currentNum += 1;
                     currentStreak += 1;
                 }
-
                 longestStreak = Math.max(longestStreak, currentStreak);
             }
         }
-
         return longestStreak;
     }
 }
