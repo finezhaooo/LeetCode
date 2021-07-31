@@ -32,7 +32,7 @@ import java.util.List;
  *
  * 输入：root = [1,2]
  * 输出：[1,2]
- * 
+ *
  *
  * 提示：
  *
@@ -48,27 +48,22 @@ import java.util.List;
 public class Codec {
     // Encodes a tree to a single string.
     public String serialize(TreeNode root) {
-        return rserialize(root,new StringBuilder()).toString();
+        return rserialize(root, new StringBuilder()).toString();
     }
 
     // Decodes your encoded data to tree.
     public TreeNode deserialize(String data) {
         String[] dataArray = data.split(",");
-        List<String> dataList = new LinkedList<>(Arrays.asList(dataArray));
-        return rdeserialize(dataList);
+        return rdeserialize(dataArray, new int[]{0});
     }
 
-    private TreeNode rdeserialize(List<String> dataList) {
-        if ("#".equals(dataList.get(0))) {
-            dataList.remove(0);
+    private TreeNode rdeserialize(String[] dataList, int[] index) {
+        if ("#".equals(dataList[index[0]++])) {
             return null;
         }
-
-        TreeNode root = new TreeNode(Integer.parseInt(dataList.get(0)));
-        dataList.remove(0);
-        root.left = rdeserialize(dataList);
-        root.right = rdeserialize(dataList);
-
+        TreeNode root = new TreeNode(Integer.parseInt(dataList[index[0]++]));
+        root.left = rdeserialize(dataList,index);
+        root.right = rdeserialize(dataList,index);
         return root;
     }
 
@@ -77,8 +72,8 @@ public class Codec {
             sb.append("#,");
         } else {
             sb.append(root.val).append(",");
-            rserialize(root.left,sb);
-            rserialize(root.right,sb);
+            rserialize(root.left, sb);
+            rserialize(root.right, sb);
         }
         return sb;
     }
