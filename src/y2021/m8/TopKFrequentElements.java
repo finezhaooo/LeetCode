@@ -56,7 +56,7 @@ public class TopKFrequentElements {
                 queue.offer(new int[]{num, count});
             }
         });
-        return queue.stream().mapToInt(val -> val[0]).tocountsay();
+        return queue.stream().mapToInt(val -> val[0]).toArray();
     }
 
     /**
