@@ -83,9 +83,10 @@ public class LongestIncreasingSubsequence {
                     //区间右移
                     i = m + 1;
                     // 左区间都大于num
-                } else
+                } else {
                     //区间左移
                     j = m;
+                }
             }
             // 第一个大于num的数或者区间内无大于num的数
             // 退出循环条件 i = j
