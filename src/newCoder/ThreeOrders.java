@@ -2,10 +2,7 @@ package newCoder;
 
 import dependecy.TreeNode;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * @ClassName : ThreeOrders
@@ -118,6 +115,26 @@ public class ThreeOrders {
             }
             if (tmpNode.right != null) {
                 stack.addLast(tmpNode.right);
+            }
+        }
+    }
+
+    /**
+     * 层序遍历
+     * @param result
+     * @param node
+     */
+    public void sequenceTraversal(LinkedList<Integer> result, TreeNode node) {
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(node);
+        while (!queue.isEmpty()) {
+            node = queue.poll();
+            result.add(node.val);
+            if (node.right != null) {
+                queue.offer(node.left);
+            }
+            if (node.right != null) {
+                queue.offer(node.left);
             }
         }
     }
