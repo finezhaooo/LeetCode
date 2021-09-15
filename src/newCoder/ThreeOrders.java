@@ -27,15 +27,15 @@ public class ThreeOrders {
     public int[][] threeOrders(TreeNode root) {
         // write code here
         LinkedList<Integer> pre = new LinkedList<>();
-        LinkedList<Integer> mid = new LinkedList<>();
-        LinkedList<Integer> last = new LinkedList<>();
+        LinkedList<Integer> in = new LinkedList<>();
+        LinkedList<Integer> post = new LinkedList<>();
         pre(pre, root);
-        mid(mid, root);
-        last(last, root);
+        in(in, root);
+        post(post, root);
         int[][] result = new int[3][pre.size()];
         result[0] = pre.stream().mapToInt(Integer::valueOf).toArray();
-        result[1] = mid.stream().mapToInt(Integer::valueOf).toArray();
-        result[2] = last.stream().mapToInt(Integer::valueOf).toArray();
+        result[1] = in.stream().mapToInt(Integer::valueOf).toArray();
+        result[2] = post.stream().mapToInt(Integer::valueOf).toArray();
         return result;
     }
 
@@ -48,7 +48,11 @@ public class ThreeOrders {
         pre(result, node.right);
     }
 
-    //非递归 栈
+    /**
+     * 非递归 栈
+     * @param result
+     * @param node
+     */
     public void pre2(LinkedList<Integer> result, TreeNode node) {
         Deque<TreeNode> stack = new ArrayDeque<>();
         stack.addLast(node);
@@ -64,17 +68,21 @@ public class ThreeOrders {
         }
     }
 
-    public void mid(LinkedList<Integer> result, TreeNode node) {
+    public void in(LinkedList<Integer> result, TreeNode node) {
         if (node == null) {
             return;
         }
-        mid(result, node.left);
+        in(result, node.left);
         result.add(node.val);
-        mid(result, node.right);
+        in(result, node.right);
     }
 
-    // 非递归
-    public void mid2(LinkedList<Integer> result, TreeNode node) {
+    /**
+     * 非递归
+     * @param result
+     * @param node
+     */
+    public void in2(LinkedList<Integer> result, TreeNode node) {
         //1、申请一个栈stack，初始时令cur=head
         //2、先把cur压入栈中，依次把左边界压入栈中，即不停的令cur=cur.left，重复步骤2
         //3、不断重复2，直到为null，从stack中弹出一个节点，记为node，打印node的值，并令cur=node.right,重复步骤2
@@ -94,17 +102,21 @@ public class ThreeOrders {
     }
 
 
-    public void last(LinkedList<Integer> result, TreeNode node) {
+    public void post(LinkedList<Integer> result, TreeNode node) {
         if (node == null) {
             return;
         }
-        last(result, node.left);
-        last(result, node.right);
+        post(result, node.left);
+        post(result, node.right);
         result.add(node.val);
     }
 
-    // 非递归
-    public void last2(LinkedList<Integer> result, TreeNode node) {
+    /**
+     * 非递归
+     * @param result
+     * @param node
+     */
+    public void post2(LinkedList<Integer> result, TreeNode node) {
         Deque<TreeNode> stack = new ArrayDeque<>();
         stack.addLast(node);
         while (!stack.isEmpty()) {
