@@ -129,4 +129,36 @@ public class PathSumIII {
         // 回溯，恢复状态
         map.put(currSum, map.getOrDefault(currSum, 0) - 1);
     }
+
+    Map<Integer, Integer> map = new HashMap<>();
+    int ans, t;
+
+    /**
+     * 前缀和
+     * @param root
+     * @param _t
+     * @return
+     */
+    public int pathSum4(TreeNode root, int _t) {
+        if (root == null) {
+            return 0;
+        }
+        t = _t;
+        map.put(0, 1);
+        dfs(root, root.val);
+        return ans;
+    }
+    void dfs(TreeNode root, int val) {
+        if (map.containsKey(val - t)) {
+            ans += map.get(val - t);
+        }
+        map.put(val, map.getOrDefault(val, 0) + 1);
+        if (root.left != null) {
+            dfs(root.left, val + root.left.val);
+        }
+        if (root.right != null) {
+            dfs(root.right, val + root.right.val);
+        }
+        map.put(val, map.getOrDefault(val, 0) - 1);
+    }
 }
